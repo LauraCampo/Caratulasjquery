@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Discos jQuery</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            table {
+                border: 4px dotted grey;
+            }
+            th {
+                border: 2px solid black;
+                padding: 4px;
+            }
+            td {
+                border: 1px solid black;
+            }
+        </style>
+        <script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                //p.189 del libro -> $('input[@type=radio][@checked]')
+                //Todos los radio seleccionados
+                $("input[name=artista]:radio").change(function(event){
+                   $.getJSON('ejson1.json',function(data){
+                      $('#contenido').empty();
+                      $('#contenido').append("<table><tr><th>CARÁTULA</th><th>DATOS DEL ÁLBUM</th></tr>");
+                      $.each(data,function(indice,entrada){
+                         var html="<tr><td>"+entrada['Carátula']+"</td><td>"+entrada['Titulo']+"</td></tr>"; 
+                         $('#contenido').append(html);
+                      });
+                      $('#contenido').append("</table>");
+                   });
+               });
+            });
+        </script>
+    </head>
+    <body>
+        <div>
+                <input type="radio" name="artista" value="Pablo Alborán">Pablo Alborán
+                <input type="radio" name="artista" value="Melendi">Melendi
+                <input type="radio" name="artista" value="David Guetta">David Guetta
+                <input type="radio" name="artista" value="Miguel Poveda">Miguel Poveda
+        </div>
+        <br>
+        <div id="contenido"></div>
+    </body>
+</html>
+
