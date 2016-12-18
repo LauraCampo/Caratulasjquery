@@ -24,16 +24,17 @@ and open the template in the editor.
         <script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                //p.189 Learning jQuery -> $('input[@type=radio][@checked]')
-                //Todos los radio seleccionados
                 $("input[name=artista][type='radio']").change(function(event){
                     alert(this.value);
+                    var valoradio = this.value;
                    $.getJSON('ejson1.json',function(data){
                       $('#contenido').empty();
                       $('#contenido').append("<table><tr><th>CARÁTULA</th><th>DATOS DEL ÁLBUM</th></tr>");
                       $.each(data,function(indice,entrada){
-                         var html="<tr><td>"+entrada['Carátula']+"</td><td>"+entrada['Titulo']+"</td></tr>"; 
-                         $('#contenido').append(html);
+                          if(valoradio==entrada['Artista']){
+                              var html="<tr><td>"+entrada['Carátula']+"</td><td>"+entrada['Titulo']+"</td></tr>"; 
+                              $('#contenido').append(html);
+                          }
                       });
                       $('#contenido').append("</table>");
                    });
